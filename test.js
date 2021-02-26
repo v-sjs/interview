@@ -51,4 +51,3 @@ console.log(m(b));
 //     return arr.concat([{ id, name, pid }], flatten(childrenList))
 // }, []);
 // console.log(flatten(list));
-
