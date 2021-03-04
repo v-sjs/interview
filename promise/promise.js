@@ -9,7 +9,6 @@ class Promise {
             if (this.status === 'pending') {
                 this.value = data;
                 this.status = 'resolved'
-                console.log(this.onFulfilledFn);
                 this.onFulfilledFn.forEach(fn => fn())
             }
         }
