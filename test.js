@@ -126,9 +126,149 @@
 
 // console.log(animal.type);
 // animal.say('nidaye')
-compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
-const greeting = (name) => `hello ${name}`;
-const toUpper = (str) => str.toUpperCase();
-const fn = compose(toUpper, greeting);
-console.log(fn("sunny"));
-// HELLO SUNNY
+// compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
+// const greeting = (name) => `hello ${name}`;
+// const toUpper = (str) => str.toUpperCase();
+// const fn = compose(toUpper, greeting);
+// console.log(fn("sunny"));
+// // HELLO SUNNY
+// const reverse = str => str.split('').reverse().join('');
+// function reverse(str) {
+//     return str.split('').reverse().join('')
+// }
+// reverse('hello world');
+// console.log(reverse('hello world'));
+// new
+// function myNew() {
+//     let constructor = [].shift.call(arguments)
+//     let obj = {}
+//     obj.__proto__ = constructor.prototype
+//     let r = constructor.apply(obj, arguments)
+//     return r instanceof Object ? r : obj
+// }
+// function Person(name) {
+//     this.name = name
+//     // return { wo: 'sjs' }
+// }
+// let me = muNew(Person, 'sos')
+// console.log(me.wo);
+
+// Function.prototype.myCall = function (context = window, ...args) {
+//     let fn = Symbol('fn')
+//     context.fn = this;
+//     let result = context.fn(...args);
+//     delete fn;
+//     return result
+// }
+// let foo = {
+//     value: 1
+// }
+// function bar(age) {
+//     console.log(age)
+//     console.log(this.value);
+// }
+
+
+// Function.prototype.myApply = function (context = window, ...args) {
+//     let fn = Symbol('fn')
+//     context.fn = this
+//     let result = context.fn(args)
+//     delete context.fn;
+//     return result
+// }
+// bar.myApply(foo, ['black', '18']) // black 18 1
+
+
+
+
+
+
+// Function.prototype.myApply = function (cos = window, ...args) {
+//     let fn = Symbol('fn')
+//     cos.fn = this;
+//     let result = cos.fn(arg)
+//     delete cos.fn
+//     return result
+// }
+
+// function muNew() {
+//     let constroctor = [].shift.call(arguments)
+//     let obj = {}
+//     obj.__proto__ = constroctor.prototype;
+//     let r = constroctor.apply(obj, arguments);
+//     return r instanceof Object ? r : obj
+// }
+// function Person(name) {
+//     this.name = name
+//     // return { wo: 'sjs' }
+// }
+// let me = muNew(Person, 'sos')
+// console.log(me.name);
+
+
+// s = "3[a]2[bc]"
+// 输出："aaabcbc"
+// s = "3[a2[c]]"
+// // s = "2[abc]3[cd]ef"
+// let a = s.split('');
+// // let a = s.match(/\[(.+?)\]/g);
+// // let a = s.substring(s.indexOf("[") + 1, s.indexOf("]"))
+// console.log(a);
+// console.log(s);
+
+// console.log(typeof []+{});
+
+// var name = '123'
+// var obj = {
+//     name: '435',
+//     getName: () => {
+//         parent = () => {
+//             console.log(this.name);
+//         }
+//         parent()
+//     }
+// }
+// obj.getName()
+
+// function deepClone(obj) {
+//     if (typeof obj !== 'object') return obj;
+//     if (obj == null) return null;
+//     if (obj instanceof Date) return new Date(obj);
+//     if (obj instanceof RegExp) return new RegExp(obj);
+//     Object.prototype.toString.call(obj) === '[object Array]'
+//     let m = new obj.constructor()
+//     for (let key in obj) {
+//         m[key] = typeof obj[key] === 'object' ? deepClone(m[key]) : obj[key]
+//     }
+//     return m
+// }
+// function deepClone(obj) {
+//     if (typeof obj !== "object") return obj;
+//     if (obj == null) return null;
+//     if (obj instanceof Date) return new Date(obj);
+//     if (obj instanceof RegExp) return new RegExp(obj);
+//     Object.prototype.toString.call(obj) === "[object Array]";
+//     let o = new obj.constructor();
+//     for (let key in obj) {
+//         o[key] = typeof obj[key] === "object" ? deepClone(o[key]) : obj[key];
+//     }
+//     return o;
+// }
+let mx = { a: 1, b: 2 }
+let ma = deepClone(mx)
+mx.a = 3
+console.log(ma);
+console.log(mx);
+
+function deepClone(obj) {
+    if (typeof obj !== 'object') return obj;
+    if (obj == null) return null
+    if (obj instanceof Date) return new Date(obj);
+    if (obj instanceof RegExp) return new RegExp(obj)
+    // Object.prototype.toString.call(obj) === '[object Array]'
+    let x = new obj.constructor()
+    for (let key in obj) {
+        x[key] = typeof obj[key] === 'object' ? deepClone(x[key]) : obj[key];
+    }
+    return x
+}
