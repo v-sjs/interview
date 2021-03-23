@@ -254,21 +254,108 @@
 //     }
 //     return o;
 // }
-let mx = { a: 1, b: 2 }
-let ma = deepClone(mx)
-mx.a = 3
-console.log(ma);
-console.log(mx);
+// let mx = { a: 1, b: 2 }
+// let ma = deepClone(mx)
+// mx.a = 3
+// console.log(ma);
+// console.log(mx);
 
-function deepClone(obj) {
-    if (typeof obj !== 'object') return obj;
-    if (obj == null) return null
-    if (obj instanceof Date) return new Date(obj);
-    if (obj instanceof RegExp) return new RegExp(obj)
-    // Object.prototype.toString.call(obj) === '[object Array]'
-    let x = new obj.constructor()
-    for (let key in obj) {
-        x[key] = typeof obj[key] === 'object' ? deepClone(x[key]) : obj[key];
+// function deepClone(obj) {
+//     if (typeof obj !== 'object') return obj;
+//     if (obj == null) return null
+//     if (obj instanceof Date) return new Date(obj);
+//     if (obj instanceof RegExp) return new RegExp(obj)
+//     // Object.prototype.toString.call(obj) === '[object Array]'
+//     let x = new obj.constructor()
+//     for (let key in obj) {
+//         x[key] = typeof obj[key] === 'object' ? deepClone(x[key]) : obj[key];
+//     }
+//     return x
+// }
+// var number = 10
+// function fn(as) {
+//     console.log(this.number)
+// }
+// var obj = {
+//     number: 2,
+//     show: function (fn) {
+//         this.number = 3;
+//         fn()
+//         arguments[0]();
+//     }
+// }
+// obj.show(fn)
+// function deepClone(obj) {
+//     if (typeof obj !== 'object') return obj
+//     if (obj === null) return null;
+//     if (obj instanceof Date) return new Date(obj)
+//     if (obj instanceof RegExp) return new RegExp(obj)
+//     let m = new obj.constructor()
+//     for (let key in obj) {
+//         m[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
+//     }
+//     return m
+// }
+// let mx = [{ a: 1, b: 2 }, { b: 3 }]
+// let ma = deepClone(mx)
+// mx[0].a = 3
+// console.log(ma);
+// console.log(mx);
+
+
+// function deepClone(obj) {
+//     if (typeof obj !== 'object') return obj
+//     if (obj === null) return null
+//     if (obj instanceof Date) return new Date(obj)
+//     if (obj instanceof RegExp) return new RegExp(obj)
+//     Object.prototype.toString.call === '[object Array]'
+//     let m = new obj.constructor()
+//     for (let key in obj) {
+//         m[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
+//     }
+//     return m
+// }
+
+// var num = 1;
+// var myObject = {
+//     num: 2,
+//     add: function () {
+//         this.num = 3;
+//         (function () {
+//             console.log(this.num);
+//             this.num = 4;
+//         })()
+//         console.log(this.num);
+//     },
+//     sub: function () {
+//         console.log(this.num);
+//     }
+// }
+// myObject.add(); //1 3
+// console.log(myObject.num);//3
+// console.log(num); //4
+// var sub = myObject.sub;
+// sub()//4
+
+function get(obj, child) {
+    if (typeof obj == 'object') {
+        let childArr = child.split(',')
+        objs(obj, childArr)
+    } else {
+        return undefined
     }
-    return x
 }
+function objs(obja, arr) {
+    let key = arr.shift();
+    if (obja[key]) {
+        console.log(arr);
+        objs(obja[key], arr)
+        if (arr.length == 0) {
+            return obja[key]
+        }
+    } else {
+        return undefined
+    }
+}
+let a = { b: { c: { d: 1 } } }
+get(a, 'b,c,d')
